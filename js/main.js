@@ -9,7 +9,8 @@ $(document).ready(function() {
     // event.preventDefault();
     // $(this).hide();
     $(this).hide();
-    $(this).fadeTo(5000, 1, fadeDone);
+    // $(this).fadeTo(5000, 1, fadeDone);
+    $(this).slideDown(3500);
   });
 
   // esemény kiváltása
@@ -18,6 +19,12 @@ $(document).ready(function() {
   // kattintás megelőzése
   $("nav a.nav-link").click( function (ev) {
     ev.preventDefault();
-    console.log(ev);
+    // console.log(ev);
+    var link = $(this);
+    $(document.body).animate({
+      opacity: '0'
+    }, 500, function (){
+      document.location = link.attr("href");
+    });
   });
 });
