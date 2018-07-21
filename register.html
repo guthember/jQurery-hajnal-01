@@ -74,7 +74,7 @@
 
                 <div class="form-group">
                   <label for="birthDate">Születési idő</label>
-                  <input name="registerBirthDate" type="date" class="form-control" id="birthDate" 
+                  <input name="registerBirthDate" type="date" class="form-control" id="birthDate"
                     value="1999-09-10" max="2000-01-01" required>
                 </div>
 
@@ -108,9 +108,9 @@
 
                 <div class="form-group">
                   <label for="registerPassword">Jelszó</label>
-                  <input 
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}" required 
-                    title="kis, nagybetű és szám, legalább nyolc karakter hosszan" 
+                  <input
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}" required
+                    title="kis, nagybetű és szám, legalább nyolc karakter hosszan"
                     name="registerPassword" type="password" class="form-control" id="registerPassword" placeholder="jelszó">
                 </div>
                 <div class="form-group">
@@ -143,13 +143,6 @@
     <script src="lib/jquery-3.2.1.slim.min.js"></script>
     <script src="lib/popper.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-
-    <script>
-      $(".cherry-custom-file").on("change", function(ev) {
-        var name = ev.target.value.split("\\").pop();
-        $(this).find(".file-name").html(
-          name);
-      });
-    </script>
+    <script src="js/main.js"></script>
   </body>
 </html>
