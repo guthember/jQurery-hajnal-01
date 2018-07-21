@@ -16,14 +16,26 @@ $(document).ready(function() {
   // esemény kiváltása
   $("p").click();
 
-  // kattintás megelőzése
   $("nav a.nav-link").click( function (ev) {
+    // kattintás megelőzése
     ev.preventDefault();
     // console.log(ev);
     var link = $(this);
-    $(document.body).animate({
-      opacity: '0'
-    }, 500, function (){
+    var prop = link.data("prop") || "opacity";
+    var val = link.data("value") || "0";
+    var speed = link.data("speed") || 3000;
+    var settings = {};
+    settings[prop] = val;
+
+    // paraméter nélkül
+    // $(document.body).animate({
+    //   opacity: '0'
+    // }, 500, function (){
+    //   document.location = link.attr("href");
+    // });
+
+    // paraméterrel
+    $(document.body).animate( settings, speed, function(){
       document.location = link.attr("href");
     });
   });
