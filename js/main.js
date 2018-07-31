@@ -106,35 +106,35 @@ var tickets = [
     event: "Balett mindenkinek",
     time: "2018-08-03 18:00:00,",
     seller: "Nagy Ádám",
-    pcs: 5,
+    pcs: 2,
     link: "licit/1"
   },
   {
     event: "Diótörő balett",
     time: "2018-08-03 18:00:00,",
     seller: "Brezeviczky Krisztián",
-    pcs: 5,
+    pcs: 9,
     link: "licit/1"
   },
   {
     event: "MOMA parti",
     time: "2018-08-03 18:00:00,",
     seller: "Zwack Magdolna",
-    pcs: 5,
+    pcs: 1,
     link: "licit/1"
   },
   {
     event: "A kékszakállú herceg vára",
     time: "2018-08-03 18:00:00,",
     seller: "Schwarz Aurél",
-    pcs: 5,
+    pcs: 15,
     link: "licit/1"
   },
   {
     event: "Macskák musicak",
     time: "2018-08-03 18:00:00,",
     seller: "Cserkó József",
-    pcs: 5,
+    pcs: 7,
     link: "licit/1"
   }
 ];
@@ -187,3 +187,36 @@ function filterTickets() {
 
   fillTicketTable(filteredTickets);
 };
+
+// Jegyek táblázat rendezése
+ticketTable.find("thead th[data-key]").on("click", orderTicketTable);
+
+function orderTicketTable() {
+  var th = $(this);
+  $.each(ticketTable.find("thead th[data-key]"), function(index, elem) {
+    var currentTh = $(elem);
+    if( th.data("key") != currentTh.data("key")) {
+      currentTh.removeClass("asc").removeClass("desc");
+    }
+  });
+  var key = th.data("key");
+
+  // klónozás, hogy az eredeti tömb ne sérüljön
+  var sortedTickets = tickets.map( function( item) {
+    return item;
+  });
+
+  if( th.hasClass("asc")) {
+    th.removeClass("asc").addClass("desc");
+    sortedTickets.sort(function(a, b) {
+      return b[key].toString().localeCompare(a[key].toString());
+    });
+  } else {
+    th.removeClass("desc").addClass("asc");
+    sortedTickets.sort(function(a, b) {
+      return a[key].toString().localeCompare(b[key].toString());
+    });
+  }
+
+  fillTicketTable(sortedTickets);
+}

@@ -67,14 +67,30 @@
     </div>
     <!-- end keresés -->
 
-    <table class="table table-striped">
+    <table class="table table-striped ticket-table">
       <thead class="thead-inverse">
         <tr>
           <th>#</th>
-          <th style="min-width:30%">Esemény neve</th>
-          <th>Időpont</th>
-          <th class="d-none d-md-table-cell">Eladó neve</th>
-          <th style="width:16%" class="text-right d-none d-md-table-cell">Hány darab?</th>
+          <th data-key="event" style="min-width:30%">
+            <i class="fa fa-sort-amount-asc"></i>
+            <i class="fa fa-sort-amount-desc"></i>
+            Esemény neve
+          </th>
+          <th data-key="time">
+            <i class="fa fa-sort-amount-asc"></i>
+            <i class="fa fa-sort-amount-desc"></i>
+            Időpont
+          </th>
+          <th data-key="seller" class="d-none d-md-table-cell">
+            <i class="fa fa-sort-amount-asc"></i>
+            <i class="fa fa-sort-amount-desc"></i>
+            Eladó neve
+          </th>
+          <th data-key="pcs" style="width:16%" class="text-right d-none d-md-table-cell">
+            <i class="fa fa-sort-amount-asc"></i>
+            <i class="fa fa-sort-amount-desc"></i>
+            Hány darab?
+          </th>
           <th style="width:18%">Licitek megtekintése</th>
         </tr>
       </thead>
