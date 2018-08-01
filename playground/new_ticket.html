@@ -42,6 +42,11 @@
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <!--  teszt adatok lekérdezése -->
+    <div id="ticket-list">
+      <pre></pre>
+    </div>
+    <!--  end teszt adatok lekérdezése -->
   </div>
   <!-- /container -->
 
@@ -80,7 +85,49 @@
     //  távoli server url
     var RESTURL = "http://localhost:3000";
 
+    function showAlert( beforeElem, type, text) {
+      var formAlertId = "form-alert";
+
+      $("#"+formAlertId).remove();
+
+      $('<div class="alert alert-' + type + '" id="' + formAlertId + '" role="alert">' + text + '</div>')
+        .insertBefore(beforeElem).fadeIn();
+
+      setTimeout(function () {
+        $("#"+formAlertId).fadeOut( function () {
+          $(this).remove();
+        });
+      }, 3000);
+    }
+
+    function refreshTicketList() {
+      $.getJSON(RESTURL+"/tickets?_sort=id&_order=desc").done(
+        function ( ticketList) {
+          $("#ticket-list > pre")[0].innerText = JSON.stringify(ticketList, null, 2);
+      });
+    }
+
+    function disableButton( button ) {
+      button.prop("disabled", true);
+    }
+
+    function enableButton( button ) {
+      button.prop("disabled", false);
+    }
+
+    function disableInputs( inputs ) {
+      inputs.prop("disabled",true);
+    }
+
+    function enableInputs( inputs ) {
+      inputs.prop("disabled",false);
+    }
+
     $(document).ready( function () {
+
+      // adatok kiiratása a form alá
+      refreshTicketList();
+
       $("#new-ticket-form").submit(
         function(event) {
           // beépített submit esemény megállítása
@@ -100,6 +147,11 @@
               data[elem["name"]] = elem["value"];
             });
 
+            var inputs = $("input", newTicketFormElem);
+            var button = $("button", newTicketFormElem);
+            disableInputs(inputs);
+            disableButton(button);
+
             $.ajax({
               type: "POST",
               url: RESTURL+"/tickets",
@@ -107,8 +159,16 @@
               dataType: "json"
             }).done(function( returnData){
               console.log("returnData =>", returnData);
+              newTicketFormElem.removeClass("was-validated");
+              newTicketFormNativElem.reset();
+              enableInputs(inputs);
+              enableButton(button);
+              showAlert(newTicketFormElem,"success","Sikeres mentés");
+              refreshTicketList();
             }).fail(function( ){
-              alert("Hiba a server elérésénél!");
+              enableInputs(inputs);
+              enableButton(button);
+              showAlert(newTicketFormElem,"warning","Hiba a szerveren!");
             });
 
           }
